@@ -287,7 +287,7 @@ const userCtrl = {
     }
   },
 
-  getUserInforWeb: async (req, res, next) => {
+  userInfo: async (req, res, next) => {
     try {
       const user = await Users.findById(req.user.id).select("-password");
 

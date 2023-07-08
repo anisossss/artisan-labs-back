@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-// const connectDB = require("./config/db");
+const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const http = require("http");
 const corsOptions = {
@@ -15,7 +15,7 @@ const authRouter = require("./src/api/routes/authRouter");
 const app = express();
 const server = http.createServer(app);
 
-// connectDB();
+connectDB();
 app.use(
   bodyParser.json({
     parameterLimit: 100000,

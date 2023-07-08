@@ -169,7 +169,6 @@ const authCtrl = {
       var bytes = CryptoJS.AES.decrypt(data, "secret key 1234567890");
       var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
-      // const data_user = getUserInscription(decryptedData[0].userId);
       const user = await Users.findById(decryptedData[0].userId);
 
       if (!user) {
@@ -199,11 +198,6 @@ const authCtrl = {
       if (token) {
         await token.delete();
       }
-      // if (data_user && data_user.socketid) {
-      //   io.to(data_user.socketid).emit("ReceiveInvitation", {
-      //     emailVerified: true,
-      //   });
-      // }
 
       if (verifiedUser) {
         res.statusCode = 200;
@@ -221,6 +215,11 @@ const authCtrl = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
+      if (!email || !password)
+        return res.status(403).json({
+          success: false,
+          message: "Not all fields have been entered",
+        });
       if (!validateEmail(email))
         return res.status(400).json({
           success: false,
@@ -494,7 +493,7 @@ const authCtrl = {
 
         return res.status(200).json({
           success: true,
-          message: "Logged in Successfully, redirecting..",
+          message: "Logged in Successfully",
           access_token,
           refresh_token,
           user,
