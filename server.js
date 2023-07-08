@@ -24,11 +24,7 @@ app.use(
   })
 );
 
-app.use(
-  cors({
-    origin: "https://artisan-labs-front.vercel.app",
-  })
-);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/public", express.static("public/"));
